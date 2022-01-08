@@ -1,4 +1,3 @@
-
 pragma solidity ^0.8.5;
 pragma experimental ABIEncoderV2;
 
@@ -45,7 +44,7 @@ contract ArbInterface  {
                 mstore(output, 0x0dfe168100000000000000000000000000000000000000000000000000000000)
                 if eq(staticcall(gas(),
                     Lp,
-                    output,`
+                    output,
                     0x4,
                     output,
                     0x20),1){
@@ -69,7 +68,7 @@ contract ArbInterface  {
                 // Token B
                 mstore(add(_MetaData,0x60),Lp)
                 mstore(output, 0xd21220a700000000000000000000000000000000000000000000000000000000)
-                if eq(staticcall(ga(),
+                if eq(staticcall(gas(),
                     Lp,
                     output,
                     0x4,
@@ -164,6 +163,7 @@ contract ArbInterface  {
             if eq(VerifyFlag, 1){
                 if lt(AmountOut,amountIn)
                 {
+                    /// @dev "Min return not reached"
                     revertWithReason(0x000000164d696e2072657475726e206e6f742072656163686564000000000000, 0x5a)
                 }
             } 
@@ -300,4 +300,5 @@ contract ArbInterface  {
     receive() external payable {}
 
 }
-s
+
+

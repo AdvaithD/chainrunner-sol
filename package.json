@@ -33,7 +33,7 @@
     "typescript": "^4.5.4"
   },
   "scripts": {
-    "forge:test:log": "RUST_LOG=forge=trace forge clean ; forge test --ffi --lib-paths node_modules lib -vvvv --allow-failure true",
+    "forge:test:uog": "RUST_LOG=forge=trace forge clean ; forge test --ffi --lib-paths node_modules lib -vvvv --allow-failure true",
     "forge:test": "forge clean ; forge test --ffi --lib-paths node_modules lib"
   }
 }
