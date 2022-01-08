@@ -1,5 +1,5 @@
 {
-  "name": "hardhat-project",
+  "name": "chainrunner-sol",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.3",
     "@nomiclabs/hardhat-etherscan": "^2.1.8",
@@ -31,5 +31,9 @@
     "ts-node": "^10.4.0",
     "typechain": "^5.2.0",
     "typescript": "^4.5.4"
+  },
+  "scripts": {
+    "forge:test:log": "RUST_LOG=forge=trace forge clean ; forge test --ffi --lib-paths node_modules lib -vvvv --allow-failure true",
+    "forge:test": "forge clean ; forge test --ffi --lib-paths node_modules lib"
   }
 }
