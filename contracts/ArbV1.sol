@@ -6,7 +6,7 @@ contract ArbV1 {
 
     address owner;
 
-    constructor() public {
+    constructor() {
 		owner = msg.sender;
     }
 
