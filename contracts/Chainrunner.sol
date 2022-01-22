@@ -41,6 +41,7 @@ contract Chainrunner {
 
                 // Token A
                 mstore(add(_MetaData,0x20),Lp)
+                // 	token0() 4byte (0x0dfe1681)
                 mstore(output, 0x0dfe168100000000000000000000000000000000000000000000000000000000)
                 if eq(staticcall(gas(),
                     Lp,
@@ -54,6 +55,7 @@ contract Chainrunner {
 
                 // Decimal A
                 mstore(add(_MetaData,0x40),Lp)
+                // decimals 4byte (0x313ce567)
                 mstore(output, 0x313ce56700000000000000000000000000000000000000000000000000000000)
                 if eq(staticcall(gas(),
                     mload(add(_MetaData,0x20)),
@@ -67,6 +69,7 @@ contract Chainrunner {
 
                 // Token B
                 mstore(add(_MetaData,0x60),Lp)
+                // .token1() 4byte (0xd21220a7)
                 mstore(output, 0xd21220a700000000000000000000000000000000000000000000000000000000)
                 if eq(staticcall(gas(),
                     Lp,
@@ -79,6 +82,7 @@ contract Chainrunner {
 
                 // Decimal B
                 mstore(add(_MetaData,0x80),Lp)
+                // decimals 4byte (0x313ce567)
                 mstore(output, 0x313ce56700000000000000000000000000000000000000000000000000000000)
                 if eq(staticcall(gas(),
                     mload(add(_MetaData,0x60)),
@@ -92,6 +96,7 @@ contract Chainrunner {
                 // Reserve 0 Reserve 1
                 mstore(add(_MetaData,0xA4),Lp)
                 mstore(add(_MetaData,0xC4),Lp)
+                // get reserves 4byte (0x0902f1ac)
                 mstore(output,0x0902f1ac00000000000000000000000000000000000000000000000000000000)
                 if eq(staticcall(gas(),
                     Lp,
