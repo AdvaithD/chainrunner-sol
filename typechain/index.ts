@@ -2,7 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { ArbV1 } from "./ArbV1";
+export type { Chainrunner } from "./Chainrunner";
 export type { Greeter } from "./Greeter";
 
 export { ArbV1__factory } from "./factories/ArbV1__factory";
+export { Chainrunner__factory } from "./factories/Chainrunner__factory";
 export { Greeter__factory } from "./factories/Greeter__factory";
