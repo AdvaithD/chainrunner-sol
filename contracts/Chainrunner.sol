@@ -144,8 +144,8 @@ contract Chainrunner {
                 let fee := shr(236,and(mload(data),0x0ffff00000000000000000000000000000000000000000000000000000000000))
                 mstore(emptyPtr,0x0902f1ac00000000000000000000000000000000000000000000000000000000)
                 if iszero(staticcall(gas(),
-                    // code - "chainrunner"
-                    and(sub(mload(data), "chainrunner"), 0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff),
+                    // code - 16
+                    and(sub(mload(data), 16), 0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff),
                     emptyPtr, 
                     0x4,
                     emptyPtr,
@@ -203,9 +203,9 @@ contract Chainrunner {
             // reserves data 
             let _res_ptr := add(_res, 0x20)
             // code - string
-            let TokenOut := sub(mload(add(MetaDataEncrypted, 0x20)), "chainrunner") // Initial Token In
+            let TokenOut := sub(mload(add(MetaDataEncrypted, 0x20)), 16) // Initial Token In
             let data := add(MetaDataEncrypted, 0x40)
-            let Lp := and(sub(mload(data), "chainrunner"), 0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff)
+            let Lp := and(sub(mload(data), 16), 0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff)
 
             // First do a transfer to the pair 
             mstore(emptyPtr, 0x23b872dd00000000000000000000000000000000000000000000000000000000)
@@ -224,7 +224,7 @@ contract Chainrunner {
                     {data := add(data, 0x40) }
             {
                 let fee := shr(236,and(mload(data),0x0ffff00000000000000000000000000000000000000000000000000000000000))
-                Lp := and(sub(mload(data), "chainrunner"), 0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff)
+                Lp := and(sub(mload(data), 16), 0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff)
 
                 // Get the balance of the TokenA of the target Lp
                 mstore(emptyPtr,0x70a0823100000000000000000000000000000000000000000000000000000000)
@@ -239,7 +239,7 @@ contract Chainrunner {
                         revert(0, returndatasize())
                     }
 
-                TokenOut := sub(mload(add(data, 0x20)),"chainrunner")
+                TokenOut := sub(mload(add(data, 0x20)),16)
                 switch eq(and(mload(data),0xf000000000000000000000000000000000000000000000000000000000000000),0x0000000000000000000000000000000000000000000000000000000000000000)
                 case true {
                     AmountOut := mul(sub(mload(emptyPtr) ,mload(_res_ptr)),fee)
@@ -261,10 +261,10 @@ contract Chainrunner {
             
                 switch lt(data,sub(end,0x40))
                 case true{
-                    mstore(add(emptyPtr, 0x44), and(sub(mload(add(data,0x40)),"chainrunner"), 0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff)) 
+                    mstore(add(emptyPtr, 0x44), and(sub(mload(add(data,0x40)),16), 0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff)) 
                     mstore(add(emptyPtr, 0x64), 0x80)
                     mstore(add(emptyPtr, 0x84), 0)
-                    if iszero(call(gas(), sub(mload(data),"chainrunner"), 0, emptyPtr, 0xa4, 0, 0)) {
+                    if iszero(call(gas(), sub(mload(data),16), 0, emptyPtr, 0xa4, 0, 0)) {
                         revertWithReason(_err_msg, 0x55)
 
                     }
