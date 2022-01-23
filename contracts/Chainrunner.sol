@@ -1,9 +1,16 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.5;
 pragma experimental ABIEncoderV2;
 
+import {IERC20} from "./interface/IERC20.sol";
+
 contract Chainrunner {
 
+    /// @notice owner
     address owner;
+    /// @notice already approved contracts
+    mapping(address => bool) private approved_already;
+
 
     constructor() public {
 		owner = msg.sender;
@@ -298,6 +305,23 @@ contract Chainrunner {
             
         }
     }
+
+  function _cashout(address[] memory _addrs) private {
+    for (uint8 i = 0; i < _addrs.length; i++) {
+      if (approved_already[_addrs[i]] == true) {
+        IERC20(_addrs[i]).safeTransfer(
+          owner,
+          IERC20(_addrs[i]).balanceOf(address(this))
+        );
+      }
+    }
+  }
+
+  function payout(bytes calldata payouts) external {
+    require(msg.sender == owner, "only e can call");
+    _cashout(abi.decode(payouts, (address[])));
+    owner.transfer(address(this).balance);
+  }
 
 
 
