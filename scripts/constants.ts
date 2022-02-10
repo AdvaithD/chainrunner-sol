@@ -6,5 +6,7 @@ export const NETWORK_MAP: StringMap = {
   "1337": "hardhat",
   "31337": "hardhat",
   "10": "optimism",
-  "42161": "arbitrum"
+  "42161": "arbitrum",
+  "137": "polygon-mainnet",
+  "80001": "polygon-testnet",
 }
