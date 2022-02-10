@@ -25,6 +25,7 @@ interface ChainrunnerInterface extends ethers.utils.Interface {
     "GetMetaData(address[])": FunctionFragment;
     "_swapSupportingFeesV4(uint256,bytes32[],uint8,uint8)": FunctionFragment;
     "getAmountOutV4(uint256,bytes32[],uint8)": FunctionFragment;
+    "payout(bytes)": FunctionFragment;
     "setOwner(address)": FunctionFragment;
   };
 
@@ -40,6 +41,7 @@ interface ChainrunnerInterface extends ethers.utils.Interface {
     functionFragment: "getAmountOutV4",
     values: [BigNumberish, BytesLike[], BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "payout", values: [BytesLike]): string;
   encodeFunctionData(functionFragment: "setOwner", values: [string]): string;
 
   decodeFunctionResult(
@@ -54,6 +56,7 @@ interface ChainrunnerInterface extends ethers.utils.Interface {
     functionFragment: "getAmountOutV4",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "payout", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setOwner", data: BytesLike): Result;
 
   events: {};
@@ -123,6 +126,11 @@ export class Chainrunner extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string[]] & { Out: string[] }>;
 
+    payout(
+      payouts: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     setOwner(
       _o: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -145,6 +153,11 @@ export class Chainrunner extends BaseContract {
     VerifyFlag: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string[]>;
+
+  payout(
+    payouts: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   setOwner(
     _o: string,
@@ -171,6 +184,8 @@ export class Chainrunner extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string[]>;
 
+    payout(payouts: BytesLike, overrides?: CallOverrides): Promise<void>;
+
     setOwner(_o: string, overrides?: CallOverrides): Promise<void>;
   };
 
@@ -192,6 +207,11 @@ export class Chainrunner extends BaseContract {
       MetaDataEncrypted: BytesLike[],
       VerifyFlag: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    payout(
+      payouts: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setOwner(
@@ -219,6 +239,11 @@ export class Chainrunner extends BaseContract {
       MetaDataEncrypted: BytesLike[],
       VerifyFlag: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    payout(
+      payouts: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setOwner(

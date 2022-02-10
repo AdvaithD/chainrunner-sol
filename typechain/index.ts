@@ -2,5 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { Chainrunner } from "./Chainrunner";
+export type { IERC20 } from "./IERC20";
 
 export { Chainrunner__factory } from "./factories/Chainrunner__factory";
+export { IERC20__factory } from "./factories/IERC20__factory";

@@ -36,8 +36,5 @@
   "scripts": {
     "forge:test:uog": "RUST_LOG=forge=trace forge clean ; forge test --ffi --lib-paths node_modules lib -vvvv --allow-failure true",
     "forge:test": "forge clean ; forge test --ffi --lib-paths node_modules lib"
-  },
-  "dependencies": {
-    "hardhat-deploy": "^0.9.27"
   }
 }

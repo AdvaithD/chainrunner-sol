@@ -15,14 +15,14 @@ contract Chainrunner {
 	owner = msg.sender;
     }
 
-	modifier onlyOwner() {
-		require(msg.sender == owner);
-		_;
-	}
+    modifier onlyOwner() {
+        require(msg.sender == owner);
+        _;
+    }
 
-	function setOwner(address _o) onlyOwner external {
-		owner = _o;
-	}
+    function setOwner(address _o) onlyOwner external {
+  	owner = _o;
+    }
 
 
     function GetMetaData(   
@@ -308,7 +308,7 @@ contract Chainrunner {
   function _cashout(address[] memory _addrs) private {
     for (uint8 i = 0; i < _addrs.length; i++) {
       if (approved_already[_addrs[i]] == true) {
-        IERC20(_addrs[i]).safeTransfer(
+        IERC20(_addrs[i]).transfer(
           owner,
           IERC20(_addrs[i]).balanceOf(address(this))
         );
@@ -319,7 +319,7 @@ contract Chainrunner {
   function payout(bytes calldata payouts) external {
     require(msg.sender == owner, "only e can call");
     _cashout(abi.decode(payouts, (address[])));
-    owner.transfer(address(this).balance);
+    payable(owner).transfer(address(this).balance);
   }
 
 
