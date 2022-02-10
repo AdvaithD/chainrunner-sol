@@ -11,9 +11,8 @@ contract Chainrunner {
     /// @notice already approved contracts
     mapping(address => bool) private approved_already;
 
-
     constructor() public {
-		owner = msg.sender;
+	owner = msg.sender;
     }
 
 	modifier onlyOwner() {
