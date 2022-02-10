@@ -3,28 +3,55 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-import { ethers } from "hardhat";
+import * as fs from "fs";
+import { ethers, waffle } from "hardhat";
+import {
+  NETWORK_MAP,
+} from "./constants";
 
 async function main() {
-  // Hardhat always runs the compile task when running scripts with its command
-  // line interface.
-  //
-  // If this script is run directly using `node` you may want to call compile
-  // manually to make sure everything is compiled
-  // await hre.run('compile');
+  const chainId = (await waffle.provider.getNetwork()).chainId;
+  const networkName = NETWORK_MAP[chainId];
+  const isLocal = networkName === "hardhat";
 
-  // We get the contract to deploy
+  console.log(`Deploying to ${networkName}`);
+
   const chainrunner = await ethers.getContractFactory("Chainrunner");
   const Chainrunner = await chainrunner.deploy();
 
   await Chainrunner.deployed();
 
   console.log("Chainrunner deployed to:", Chainrunner.address);
+  const info = {
+    Contracts: {
+      Chainrunner: {
+        chainId,
+        network: networkName,
+        address: Chainrunner.address,
+        args: [],
+        abi: JSON.parse(
+          Chainrunner.interface.format(ethers.utils.FormatTypes.json) as string
+        ),
+      },
+    },
+  };
+
+  console.log("** End Deployment **\n");
+
+  console.log("** Contract Info **");
+  console.log(info);
+
+  if (!isLocal) {
+    fs.writeFileSync(
+      `${__dirname}/../../deployments/chainrunner/${networkName}.json`,
+      JSON.stringify(info, null, 2)
+    );
+  }
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
