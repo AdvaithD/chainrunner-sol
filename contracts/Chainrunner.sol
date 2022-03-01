@@ -25,6 +25,8 @@ contract Chainrunner {
     }
 
 
+    /// @notice Given an array of pairs representing a route, return an array of encrypted metadata
+    /// This usually helps with bots decoding our stuff (?), note the uint8 variable that represents a key
     function GetMetaData(   
             address[] memory route
     ) external view returns (
@@ -305,6 +307,7 @@ contract Chainrunner {
         }
     }
 
+  /// @notice cashout entire balances given an array of erc20 tokens
   function _cashout(address[] memory _addrs) private {
     for (uint8 i = 0; i < _addrs.length; i++) {
       if (approved_already[_addrs[i]] == true) {
@@ -316,8 +319,9 @@ contract Chainrunner {
     }
   }
 
+  /// @notice cashout erc20's and eth balance from contract
   function payout(bytes calldata payouts) external {
-    require(msg.sender == owner, "only e can call");
+    require(msg.sender == owner, "!owner");
     _cashout(abi.decode(payouts, (address[])));
     payable(owner).transfer(address(this).balance);
   }
