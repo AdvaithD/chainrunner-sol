@@ -8,9 +8,11 @@ contract Chainrunner {
 
     /// @notice owner
     address owner;
+
     /// @notice already approved contracts
     mapping(address => bool) private approved_already;
 
+    /// @notice set contract owner
     constructor() public {
 	owner = msg.sender;
     }
@@ -328,9 +330,9 @@ contract Chainrunner {
 
 
 
-    fallback() external payable {}
+   fallback() external payable {}
 
-    receive() external payable {}
+   receive() external payable {}
 
 }
 
